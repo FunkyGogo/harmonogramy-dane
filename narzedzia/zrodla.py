@@ -12,9 +12,12 @@ def a(u, t): return f'<a href="{e(u)}" rel="noopener">{e(t)}</a>'
 # Oficjalne strony gmin dla harmonogramów bez linku w danych – tylko do czasu, aż wątek danych doda
 # pole zrodlo.strona_gminy (pliki z danymi zmienia wyłącznie wątek danych).
 UZUPELNIENIA = {"2010023": {"strona_gminy": "https://drohiczyn.pl/"}}
+# Linki z danych, które przestały działać (sprawdzone 6.11.2026) – zastępujemy działającą oficjalną stroną gminy.
+# Do zgłoszenia wątkowi danych; po poprawce w danych wpis można usunąć.
+NADPISANIA = {"2007013": {"url": "https://www.jedwabne.pl/index.php?k=79"}}
 
 def wiersz(g, d):
-    z = {**UZUPELNIENIA.get(g["teryt"], {}), **(d.get("zrodlo") or {})}
+    z = {**UZUPELNIENIA.get(g["teryt"], {}), **(d.get("zrodlo") or {}), **NADPISANIA.get(g["teryt"], {})}
     nazwa = ("miasto " if g["teryt"].endswith("1") else "gm. ") + g["gmina"]
     op = z.get("operator") or g.get("operator") or ""
     if op.lower().startswith("nieustalon"): op = ""
