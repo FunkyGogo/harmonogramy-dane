@@ -14,7 +14,11 @@ def a(u, t): return f'<a href="{e(u)}" rel="noopener">{e(t)}</a>'
 UZUPELNIENIA = {"2010023": {"strona_gminy": "https://drohiczyn.pl/"}}
 # Linki z danych, które przestały działać (sprawdzone 6.11.2026) – zastępujemy działającą oficjalną stroną gminy.
 # Do zgłoszenia wątkowi danych; po poprawce w danych wpis można usunąć.
-NADPISANIA = {"2007013": {"url": "https://www.jedwabne.pl/index.php?k=79"}}
+NADPISANIA = {
+    "2007013": {"url": "https://www.jedwabne.pl/index.php?k=79"},
+    # sokolka.pl nie odpowiada spoza Polski (recenzja Google Play 10.11.2026) – ten sam PDF publikuje MPO Białystok
+    "2011083": {"url": "https://www.mpo.bialystok.pl/mpo/terminarze_gminy_2026/Harmonogram_Sokolka_II_polrocze_2026.pdf"},
+}
 
 def wiersz(g, d):
     z = {**UZUPELNIENIA.get(g["teryt"], {}), **(d.get("zrodlo") or {}), **NADPISANIA.get(g["teryt"], {})}
